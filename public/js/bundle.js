@@ -6534,11 +6534,11 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 /* eslint-disable */
 
 const login = async (email, password) => {
-  console.log(email, password);
+  // console.log(email, password);
   try {
     const res = await (0, _axios.default)({
       method: 'POST',
-      url: 'http://localhost:3000/api/v1/users/login',
+      url: '/api/v1/users/login',
       data: {
         email,
         password
@@ -6559,7 +6559,7 @@ const logout = async () => {
   try {
     const res = await (0, _axios.default)({
       method: 'GET',
-      url: 'http://localhost:3000/api/v1/users/logout'
+      url: '/api/v1/users/logout'
     });
     if (res.data.status = 'success') location.reload(true);
   } catch (err) {
@@ -6584,7 +6584,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 const updateSettings = async (data, type) => {
   console.log(data);
   try {
-    const url = type === 'password' ? 'http://localhost:3000/api/v1/users/updateMyPassword' : 'http://localhost:3000/api/v1/users/updateMe';
+    const url = type === 'password' ? '/api/v1/users/updateMyPassword' : '/api/v1/users/updateMe';
     const res = await (0, _axios.default)({
       method: 'PATCH',
       url,

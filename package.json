@@ -12,12 +12,13 @@
     "start:prod": "cross-env NODE_ENV=production nodemon server.js",
     "debug": "node --inspect server.js",
     "watch:js": "parcel watch ./public/js/index.js --out-dir ./public/js --out-file bundle.js",
-    "build:js": "parcel watch ./public/js/index.js --out-dir ./public/js --out-file bundle.js"
+    "build:js": "parcel build ./public/js/index.js --out-dir ./public/js --out-file bundle.js"
   },
   "dependencies": {
     "@babel/polyfill": "^7.12.1",
     "axios": "^0.35.0",
     "bcryptjs": "^3.0.3",
+    "compression": "^1.8.2",
     "cookie-parser": "^1.4.7",
     "dotenv": "^18.0.7",
     "express": "^4.22.3",
