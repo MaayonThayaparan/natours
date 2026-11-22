@@ -6618,7 +6618,7 @@ const bookTour = async tourId => {
   try {
     // 1) Get checkout session from API
 
-    const session = await (0, _axios.default)(`http://localhost:3000/api/v1/booking/checkout-session/${tourId}`);
+    const session = await (0, _axios.default)(`/api/v1/bookings/checkout-session/${tourId}`);
     console.log(session);
 
     // 2) Create checkout from + charge credit card
@@ -6627,7 +6627,7 @@ const bookTour = async tourId => {
     });
   } catch (err) {
     console.log(err);
-    (0, _alert.showAlert)('error', err);
+    (0, _alert.showAlert)('error', err.response?.data?.message || 'Unable to start checkout. Please try again.');
   }
 };
 exports.bookTour = bookTour;
@@ -6730,7 +6730,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53063" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54090" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
