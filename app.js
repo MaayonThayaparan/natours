@@ -11,6 +11,7 @@ const cookieParser = require('cookie-parser');
 const tourRouter = require('./routes/tourRoutes');
 const userRouter = require('./routes/userRoutes');
 const reviewRouter = require('./routes/reviewRoutes');
+const bookingRouter = require('./routes/bookingRoutes');
 const viewRouter = require('./routes/viewRoutes');
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
@@ -27,7 +28,19 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Set security HTTP headers
-app.use(helmet());
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: ["'self'", 'https://js.stripe.com'],
+        frameSrc: ["'self'", 'https://js.stripe.com'],
+        connectSrc: ["'self'", 'https://api.stripe.com'],
+        imgSrc: ["'self'", 'data:', 'https://*.stripe.com'],
+      },
+    },
+  }),
+);
 
 // Development logging
 console.log(process.env.NODE_ENV);
@@ -78,7 +91,7 @@ app.use(
 app.use((req, res, next) => {
   req.requestTime = new Date().toISOString();
   // console.log(req.headers);
-  console.log(req.cookies);
+  // console.log(req.cookies);
   next();
 });
 
@@ -88,6 +101,7 @@ app.use('/', viewRouter);
 app.use('/api/v1/tours', tourRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/reviews', reviewRouter);
+app.use('/api/v1/bookings', bookingRouter);
 
 app.all('*', (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`));
