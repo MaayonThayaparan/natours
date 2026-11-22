@@ -19,10 +19,14 @@ export const bookTour = async (tourId) => {
     });
   } catch (err) {
     console.log(err);
+    const message =
+      err.response && err.response.data && err.response.data.message
+        ? err.response.data.message
+        : 'Unable to start checkout. Please try again.';
+
     showAlert(
       'error',
-      err.response?.data?.message ||
-        'Unable to start checkout. Please try again.',
+      message,
     );
   }
 };
